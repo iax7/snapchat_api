@@ -9,3 +9,7 @@ gem "faraday", "~> 2.2"
 gem "dotenv", "~> 2.7"
 
 gem "pry", "~> 0.14.1"
+
+gem "puma"
+gem "sinatra", "~> 2.2"
+gem "sinatra-contrib"
