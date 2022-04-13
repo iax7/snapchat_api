@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snap!</title>
+  <!-- https://picturepan2.github.io/spectre/index.html -->
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+</head>
+<body>
+  <div class="container">
+    <h1><i class="icon icon-arrow-right"></i>Snap!</h1>
+    <h3><%= @data[:status] %></h3>
+    <p>
+      Data retrieved:
+      <pre class="code" data-lang="ruby">
+        <code><%= @data %></code>
+      </pre>
+    </p>
+  </div>
+</body>
+</html>

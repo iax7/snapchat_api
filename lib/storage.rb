@@ -1,6 +1,7 @@
 # frozen_string_literals: true
 
 require "yaml"
+require "time"
 
 module Storage
   TOKENS_FILE = "tokens.yml"
@@ -12,7 +13,11 @@ module Storage
     puts "Tokens saved!"
   end
 
-  def load_tokens = YAML.load_file(TOKENS_FILE)
+  def load_tokens
+    YAML.load_file(TOKENS_FILE)
+  rescue => e
+    return {}
+  end
 
-  def add_time(hash) = hash.tap { _1.store(:timestap, Time.now) }
+  def add_time(hash) = hash.tap { _1.store(:timestap, Time.now.to_s) }
 end

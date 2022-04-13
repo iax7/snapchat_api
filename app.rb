@@ -1,20 +1,33 @@
 # frozen_string_literals: true
 
+require "pry"
 require "dotenv/load"
 require "sinatra"
 require "sinatra/reloader"
-require "pry"
 
 require_relative "api/snap"
 require_relative "lib/storage"
 
 set :port, 5000
+set :views, Proc.new { File.join(root, "templates") }
 
 include Storage
 snap_api = Snap.new(ENV["SC_CLIENT_ID"], ENV["SC_CLIENT_SECRET"], ENV["SC_REDIRECT_URI"])
 
-# Step 1
+get "/ping" do
+  @data = "pong"
+  erb :index
+end
+
+#
 get "/" do
+  @data = load_tokens
+
+  erb :index
+end
+
+# Step 1
+get "/auth" do
   url_str = snap_api.authorize_url
 
   redirect url_str
@@ -31,7 +44,10 @@ get "/snapchat" do
   tokens = response.body.slice(:access_token, :refresh_token)
   save_tokens(tokens)
 
-  "token saved!"
+  @data = load_tokens
+  @data.store :status, "token saved!"
+
+  erb :index
 end
 
 # Step 3: Refresh token
@@ -43,5 +59,8 @@ get "/refresh" do
   tokens = response.body.slice(:access_token, :refresh_token)
   save_tokens(tokens)
 
-  "token refreshed!"
+  @data = load_tokens
+  @data.store :status, "token refreshed!"
+
+  erb :index
 end
