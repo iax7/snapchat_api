@@ -14,7 +14,7 @@
   <div class="container">
     <h1><i class="icon icon-arrow-right"></i>Welcome to Snap!</h1>
     <p>
-      <% if @data.empty? %>
+      <% if @data.nil? || @data.empty? %>
         <a class="btn btn-primary" role="button" href="/auth">Start Auth</a>
       <% else %>
         <a class="btn" role="button" href="/refresh">Refresh Token</a>
