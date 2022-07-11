@@ -4,13 +4,13 @@
 require "pry"
 require "dotenv/load"
 
-require_relative "api/snap"
+require_relative "api/snap_auth"
 require_relative "lib/storage"
 
 first_arg, *args = ARGV
 
 include Storage
-snap_api = Snap.new(ENV["SC_CLIENT_ID"], ENV["SC_CLIENT_SECRET"], ENV["SC_REDIRECT_URI"])
+snap_api = SnapAuth.new(ENV["SC_CLIENT_ID"], ENV["SC_CLIENT_SECRET"], ENV["SC_REDIRECT_URI"])
 
 if first_arg == "-1"
   url_str = snap_api.authorize_url
