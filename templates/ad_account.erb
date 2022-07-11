@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snap!</title>
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+</head>
+<body>
+<div class="container">
+  <h1><i class="icon icon-arrow-right"></i>Snapchat Ad Account</h1>
+  <br>
+  <br>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>CURRENCY</th>
+      <th>ADD</th>
+    </tr>
+    </thead>
+    <tr>
+      <% @ad_accounts[:adaccounts].each do |account| %>
+        <td><%= account[:adaccount][:id] %></td>
+        <td><%= account[:adaccount][:name] %></td>
+        <td><%= account[:adaccount][:currency] %></td>
+        <td><a class="btn btn-primary" role="button" href="/">Create Add</a></td>
+      <% end %>
+      </table>
+</div>
+</body>
+</html>

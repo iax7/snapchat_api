@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snap!</title>
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+</head>
+<body>
+<div class="container">
+  <h1><i class="icon icon-arrow-right"></i>Snapchat Catalog</h1>
+  <br>
+  <p>
+    <% if @catalog.nil? || @catalog.empty? %>
+      No catalog found for organization
+    <% else %>
+    <h2> Catalog:</h2>
+    <b>Catalog ID</b>: <%= @catalog[:catalog][:id] %>
+    <br>
+    <b>Catalog Name</b>: <%= @catalog[:catalog][:name] %>
+    <% end %>
+  </p>
+  <br>
+  <p>
+    <% if @product_feed.nil? || @product_feed.empty? %>
+      No product feed found for this catalog
+    <% else %>
+    <h2>Product feed:</h2>
+      <b>Product Feed ID</b>: <%= @product_feed[:product_feed][:id] %>
+      <br>
+        <b>Product Feed Name</b>: <%= @product_feed[:product_feed][:name] %>
+    <% end %>
+  </p>
+  <br>
+  <br>
+</div>
+
+<div class="container">
+  <h1><i class="icon icon-arrow-right"></i>Feedonomics Configuration</h1>
+  <br>
+  <p>
+    <% if @import.nil? || @import.empty? %>
+      No import configuration found
+    <% else %>
+    <h2>Import:</h2>
+    <b>Database ID</b>: <%= @import["db_id"] %>
+    <br>
+    <b>Import Name</b>: <%= @import["name"] %>
+    <br>
+    <b>Import ID</b>: <%= @import["id"] %>
+    <br>
+    <b>Export File</b>: <%= @import["file_location"] %>
+  <% end %>
+  </p>
+  <br>
+  <p>
+    <% if @export.nil? || @export.empty? %>
+      No export configuration found
+    <% else %>
+    <h2>Export:</h2>
+    <b>Database ID</b>: <%= @export["db_id"] %>
+    <br>
+    <b>Export Name</b>: <%= @export["name"] %>
+    <br>
+    <b>Export ID</b>: <%= @export["id"] %>
+    <br>
+    <b>Export File Name</b>: <%= @export["file_name"] %>
+  <% end %>
+  </p>
+</div>
+<br>
+<div class="container">
+  <a class="btn btn-primary" role="button" href="/organizations">Return</a>
+</div>
+<br>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snap!</title>
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+</head>
+<body>
+<div class="container">
+  <h1><i class="icon icon-arrow-right"></i>Snapchat Organizations</h1>
+  <br>
+  <br>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>STATE</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+      <% @organizations[:organizations].each do |organization| %>
+      <tr>
+        <td><%= organization[:organization][:id] %></td>
+        <td><%= organization[:organization][:name] %></td>
+        <td><%= organization[:organization][:state] %></td>
+        <td><a class="btn btn-primary" role="button" href="/sync_catalog?organization_id=<%= organization[:organization][:id] %>">Sync Catalog</a></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

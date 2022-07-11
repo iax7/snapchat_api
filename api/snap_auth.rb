@@ -4,19 +4,27 @@ require "securerandom"
 require "faraday"
 require "faraday/net_http"
 
-class Snap
-  def initialize(client_id, client_secret,redirect_uri)
+# Snapchat API client
+class SnapAuth
+  BASE_URL = "https://accounts.snapchat.com"
+
+  # @param client_id [String]
+  # @param client_secret [String]
+  # @param redirect_uri [String]
+  # @return [self]
+  def initialize(client_id, client_secret, redirect_uri)
     @client_id = client_id
     @client_secret = client_secret
     @redirect_uri = redirect_uri
 
-    @connection = Faraday.new("https://accounts.snapchat.com") do |f|
-      f.request :url_encoded
-      f.response :json, parser_options: { symbolize_names: true }
-      f.adapter :net_http
+    @connection = Faraday.new(BASE_URL) do |faraday|
+      faraday.request :url_encoded
+      faraday.response :json, parser_options: { symbolize_names: true }
+      faraday.adapter :net_http
     end
   end
 
+  # @return [String]
   def authorize_url
     query = {
       response_type: "code",
@@ -33,6 +41,8 @@ class Snap
     url.to_s
   end
 
+  # @param code [String]
+  # @return [Faraday::Response]
   def generate_tokens(code)
     data = {
       code: code,
@@ -41,11 +51,12 @@ class Snap
       grant_type: "authorization_code",
       redirect_uri: redirect_uri
     }
-    response = connection.post("/login/oauth2/access_token", data)
 
-    response
+    connection.post("/login/oauth2/access_token", data)
   end
 
+  # @param refresh_token [String]
+  # @return [Faraday::Response]
   def refresh_token(refresh_token)
     data = {
       refresh_token: refresh_token,
@@ -53,14 +64,14 @@ class Snap
       client_secret: client_secret,
       grant_type: "refresh_token"
     }
-    response = connection.post("/login/oauth2/access_token", data)
 
-    response
+    connection.post("/login/oauth2/access_token", data)
   end
 
   private
 
   attr_reader :client_id, :client_secret, :redirect_uri, :connection
 
+  # @return [String]
   def state = SecureRandom.alphanumeric(30)
 end
