@@ -42,6 +42,15 @@ module Http
       def create_ftp_accounts(db_id, payload)
         connection.post("dbs/#{db_id}/ftp_accounts", payload.to_json)
       end
+
+
+      # @see https://app.swaggerhub.com/apis/feedonomicsjustin/Feedonomics/2#/DBGroups/post_dbs__db_id__move_db_to_db_group
+      # @param db_id [String]
+      # @param payload [Hash<Symbol->Object>]
+      # @return [Faraday::Response]
+      def move_db_to_group(db_id, payload)
+        connection.post("dbs/#{db_id}/move_db_to_db_group", payload.to_json)
+      end
     end
   end
 end

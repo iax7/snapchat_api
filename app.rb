@@ -60,7 +60,7 @@ get "/refresh" do
   response = snap_auth_api.refresh_token(refresh_token)
   return response.body unless response.success?
 
-  tokens = response.body.slice(:access_token, :refresh_token)
+  tokens = response.body&.slice(:access_token, :refresh_token)
   save_tokens(tokens)
 
   @data = load_tokens
@@ -111,6 +111,23 @@ get "/sync_catalog" do
     return database.body&.to_json unless database.success?
 
     database = JSON.parse(database.body)
+  end
+
+  db_groups = fdx_auth_api.groups(account["id"])
+  return db_groups.body&.to_json unless db_groups.success?
+
+  db_groups = JSON.parse(db_groups.body)
+  db_group = db_groups&.find { |db| db["name"] == "Snap Integration" }
+  if db_group.nil?
+    group_payload = {
+      source_db_group_id: 0,
+      target_db_group_id: -1,
+      target_db_group_name: "Snap Integration"
+    }
+    db_group_response = fdx_auth_api.move_db_to_group(database["id"], group_payload)
+    return db_group_response.body&.to_json unless db_group_response.success?
+
+    db_group = JSON.parse(db_group_response.body)
   end
 
   # Get import configuration from a current database
