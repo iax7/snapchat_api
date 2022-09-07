@@ -37,6 +37,13 @@ module Http
       def ftp_accounts(db_id)
         connection.get("dbs/#{db_id}/ftp_accounts")
       end
+
+      # @see https://app.swaggerhub.com/apis/feedonomicsjustin/Feedonomics/2#/DBGroups/get_accounts__account_id__db_groups
+      # @param account_id [String]
+      # @return [Faraday::Response]
+      def groups(account_id)
+        connection.get("accounts/#{account_id}/db_groups")
+      end
     end
   end
 end
